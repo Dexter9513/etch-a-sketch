@@ -1,46 +1,43 @@
-const canvas = document.querySelector('canvas');
-const buttons = document.querySelectorAll('button');
-const ctx = canvas.getContext('2d');
-const step = 5;
-
-ctx.lineWidth = 1;
-ctx.fillStyle = '#000';
-ctx.lineCap = 'round';
-ctx.beginPath();
-let [lastX, lastY] = [50, 50];
-ctx.moveTo(lastX, lastY);
+const container = document.querySelector('.container');
+const button = document.querySelector('button');
+const originalPixelSize = 40;
+const originalCanvasSize = 16;
 
 
-function drawWithKeys(e) {
-    if (e.key === 'ArrowUp') {
-        lastY -= 1 * step;
-    } else if (e.key === 'ArrowDown') {
-        lastY += 1 * step;
-    } else if (e.key === 'ArrowLeft') {
-        lastX -= 1 * step;
-    } else if (e.key === 'ArrowRight') {
-        lastX += 1 * step;
+function createCanvas(size, sizeOfEachPixel) {
+    // delete old canvas
+    let rows = document.querySelectorAll('.row');
+    rows.forEach(row => container.removeChild(row));
+
+    // draw new canvas
+    for (i = 0; i < size; i++) {
+        let row = document.createElement('div');
+        row.classList.add('row');
+        for (j = 0; j < size; j++) {
+            pixel = document.createElement('div');
+            pixel.classList.add('pixel');
+            row.appendChild(pixel);
+        }
+        container.appendChild(row);
     }
-    ctx.lineTo(lastX, lastY);
-    ctx.stroke();
+    document.documentElement.style.setProperty('--padding', (sizeOfEachPixel - 2) / 2 + 'px');
+    
+    const pixels = document.querySelectorAll('.pixel');
+    pixels.forEach(pixel => {
+        pixel.addEventListener('mouseover', () => {
+            pixel.classList.add('fill')
+        });
+    });
 }
 
-function draw() {
-    const direction = this.dataset.direction;
-    if (direction === 'up') {
-        lastY -= 1 * step;
-    } else if (direction === 'down') {
-        lastY += 1 * step;
-    } else if (direction === 'left') {
-        lastX -= 1 * step;
-    } else if (direction === 'right') {
-        lastX += 1 * step;
-    }
-    ctx.lineTo(lastX, lastY);
-    ctx.stroke();
-}
+createCanvas(originalCanvasSize, originalPixelSize);
 
-window.addEventListener('keydown', drawWithKeys);
-buttons.forEach(button => {
-    button.addEventListener('click', draw);
+button.addEventListener('click', () => {
+    newCanvasSize = prompt('Enter number of squares per side');
+    if (newCanvasSize < 1 || newCanvasSize > 100) {
+        console.log('Must be between 1 and 100');
+        return;
+    }
+    const newPixelSize = originalCanvasSize * originalPixelSize / newCanvasSize;
+    createCanvas(newCanvasSize, newPixelSize);
 });

@@ -1,33 +1,30 @@
-.container{
-    width: 100%;
-    height: 95vh;
+:root {
+    --padding: 20px;
+}
+
+.pixel {
+    box-sizing: border-box;
+    padding: var(--padding);
+    border: 1px solid gray;
+}
+
+.fill {
+    background-color: black;
+}
+.row {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
 }
-
-canvas {
-    background: lightgray;
-    width: 100%;
-    height: 100%;
-    padding: 20px solid red;
-}
-
-.canvas {
-    padding: 20px;
-    background-color: red;
-    flex-grow: 1;
-}
-
-.controls {
+.container {
+    height: 100vh;
     display: flex;
+    flex: 0;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    background: red;
-    gap: 2px;
-    flex-grow: 0;
-    padding-bottom: 16px;
 }
 
-.left.right>button {
-    margin: 0px 15px;
+button {
+    margin: 50px;
+    flex-grow: 0;
 }
