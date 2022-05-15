@@ -1,7 +1,8 @@
 const container = document.querySelector('.container');
 const button = document.querySelector('button');
-const originalPixelSize = 40;
+const originalPixelSize = 30;
 const originalCanvasSize = 16;
+let rainbow = true;
 
 
 function createCanvas(size, sizeOfEachPixel) {
@@ -25,7 +26,10 @@ function createCanvas(size, sizeOfEachPixel) {
     const pixels = document.querySelectorAll('.pixel');
     pixels.forEach(pixel => {
         pixel.addEventListener('mouseover', () => {
-            pixel.classList.add('fill')
+            // pixel.classList.add('fill')
+
+            // rainbow fill
+            pixel.style.background =back = `hsl(${Math.floor(Math.random() * 360)}, ${Math.floor(Math.random() * 100)}%, ${Math.floor(Math.random() * 100)}%)`
         });
     });
 }
@@ -35,7 +39,7 @@ createCanvas(originalCanvasSize, originalPixelSize);
 button.addEventListener('click', () => {
     newCanvasSize = prompt('Enter number of squares per side');
     if (newCanvasSize < 1 || newCanvasSize > 100) {
-        console.log('Must be between 1 and 100');
+        alert('Must be between 1 and 100!');
         return;
     }
     const newPixelSize = originalCanvasSize * originalPixelSize / newCanvasSize;
