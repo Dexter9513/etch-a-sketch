@@ -1,2 +1,2 @@
-# etch-a-sketch
-[Live Preview](https://dexter9513.github.io/etch-a-sketch/)
+# Etch A Sketch
+[Live Preview](https://timow3rn3r.github.io/etch-a-sketch/)
